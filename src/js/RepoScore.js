@@ -198,7 +198,7 @@ export default class RepoScore {
       // const end = performance.now();
       // console.log('RUN TIME IN SECONDS:')
       // console.log((end - start) / 1000);
-      console.log({ contributors, mostRecentCommit, issues, tests, bonusPoints });
+      // console.log({ contributors, mostRecentCommit, issues, tests, bonusPoints });
       const total = contributors + mostRecentCommit + issues + tests + bonusPoints;
       return {
         score: Math.round(total),
