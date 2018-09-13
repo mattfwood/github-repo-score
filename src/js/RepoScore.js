@@ -92,6 +92,8 @@ export default class RepoScore {
   /**
    * Has tests: 20
    * No tests: 0
+   *
+   * TODO: Make this actually check something substantial, maybe coverage / coveralls reports
    */
   async tests() {
     try {
@@ -203,8 +205,8 @@ export default class RepoScore {
         score: Math.round(total),
         breakdown: {
           contributors,
-          mostRecentCommit,
-          issues,
+          updatedRecently: mostRecentCommit,
+          closedIssues: issues,
           tests,
           bonusPoints,
         }
