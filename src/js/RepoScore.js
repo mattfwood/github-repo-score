@@ -93,7 +93,6 @@ export default class RepoScore {
    * Has tests: 20
    * No tests: 0
    */
-
   async tests() {
     try {
       const { owner, repo } = this;
