@@ -91,7 +91,6 @@ const appendScore = async () => {
   const red = '#cb2431';
 
   const { score, breakdown } = await repoScore.getScore();
-  console.log({ score, breakdown });
   let color;
 
   if (score > 80) {
@@ -109,7 +108,6 @@ const appendScore = async () => {
   scoreElement.style.color = '#FFF';
 
   const breakdownElement = document.querySelector('.score-breakdown-container');
-  console.log(breakdownElement);
   const items = [];
 
   // Build array of list items from breakdown of results
@@ -125,7 +123,6 @@ const appendScore = async () => {
 
   // Open / close dropdown
   document.querySelector('.repo-score-dropdown-button').addEventListener('click', (e) => {
-    console.log(e);
     const scoreDropdown = document.querySelector('.repo-score-dropdown')
     if (Array.from(scoreDropdown.classList).includes('active')) {
       scoreDropdown.classList.remove('active');
