@@ -19,7 +19,7 @@ export default class RepoScore {
   async mostRecentCommit() {
     try {
       const { owner, repo } = this;
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/commits?access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       const commits = res.data;
       const date = commits[0].commit.committer.date
       const daysAgo = moment().diff(date, 'days')
@@ -54,7 +54,7 @@ export default class RepoScore {
   async commitActivity() {
     try {
       const { owner, repo } = this;
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/stats/commit_activity`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/stats/commit_activity?access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       return res.data;
     } catch (error) {
       throw new Error(error);
@@ -74,7 +74,7 @@ export default class RepoScore {
     try {
       const { owner, repo } = this;
       const sixMonthsAgo = moment().subtract(6, 'months').format();
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/issues?state=closed&since=${sixMonthsAgo}`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/issues?state=closed&since=${sixMonthsAgo}&access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       const closedIssues = res.data.length;
       console.log(closedIssues);
 
@@ -98,7 +98,7 @@ export default class RepoScore {
     try {
       const { owner, repo } = this;
       const sixMonthsAgo = moment().subtract(6, 'months').format();
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/contents/`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/contents?access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       const contents = res.data;
       const hasTests = contents.some(item => item.name.includes('test'));
 
@@ -113,7 +113,7 @@ export default class RepoScore {
   async contributors() {
     try {
       const { owner, repo } = this;
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/stats/contributors`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/stats/contributors?access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       const contributorCount = res.data.length;
 
       if (contributorCount > 5) return 20;
@@ -130,7 +130,7 @@ export default class RepoScore {
   async participation() {
     try {
       const { owner, repo } = this;
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/stats/participation`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}/stats/participation?access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       return res.data;
     } catch (error) {
       throw new Error(error);
@@ -140,7 +140,7 @@ export default class RepoScore {
   async bonusPoints() {
     try {
       const { owner, repo } = this;
-      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}`);
+      const res = await axios.get(`https://api.github.com/repos/${owner}/${repo}?access_token=f53a3a9b618e28420561d27ca99d38a1d3cc1364`);
       const repoData = res.data;
       let bonusPoints = 0;
 
@@ -176,10 +176,18 @@ export default class RepoScore {
   async getScore() {
     try {
       // const start = performance.now();
-      const [commitActivity, contributors, participation, mostRecentCommit, issues, tests, bonusPoints] = await Promise.all([
-        this.commitActivity(),
+      const [
+        // commitActivity,
+        contributors,
+        // participation,
+        mostRecentCommit,
+        issues,
+        tests,
+        bonusPoints
+      ] = await Promise.all([
+        // this.commitActivity(),
         this.contributors(),
-        this.participation(),
+        // this.participation(),
         this.mostRecentCommit(),
         this.issues(),
         this.tests(),
@@ -192,7 +200,16 @@ export default class RepoScore {
       // console.log((end - start) / 1000);
       console.log({ contributors, mostRecentCommit, issues, tests, bonusPoints });
       const total = contributors + mostRecentCommit + issues + tests + bonusPoints;
-      return Math.round(total);
+      return {
+        score: Math.round(total),
+        breakdown: {
+          contributors,
+          mostRecentCommit,
+          issues,
+          tests,
+          bonusPoints,
+        }
+      };
     } catch (error) {
       throw new Error(error);
     }
