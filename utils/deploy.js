@@ -21,7 +21,7 @@ bundleExtension()
     // } --refresh-token ${env.CHROME_REFRESH_TOKEN} --auto-publish`);
 
     exec(
-      `webstore upload --source WR-${version}.zip --extension-id ${
+      `yarn webstore upload --source GRS-${version}.zip --extension-id ${
       env.CHROME_EXTENSION_ID
       } --client-id ${env.CHROME_CLIENT_ID} --client-secret ${
       env.CHROME_CLIENT_SECRET
@@ -46,30 +46,7 @@ bundleExtension()
       },
     );
 
-    // shell.webstore(
-    //   'webstore',
-    //   'upload',
-    //   '--source',
-    //   `WR-${version}.zip`,
-    //   '--extension-id',
-    //   `${env.CHROME_EXTENSION_ID}`,
-    //   '--client-id',
-    //   `${env.CHROME_CLIENT_ID}`,
-    //   '--client-secret',
-    //   `${env.CHROME_CLIENT_SECRET}`,
-    //   '--refresh-token',
-    //   `${env.CHROME_REFRESH_TOKEN}`,
-    //   '--auto-publish',
-    // );
-
-    // webstore upload --source extension.zip --extension-id $EXTENSION_ID --client-id $CLIENT_ID --client-secret $CLIENT_SECRET --refresh-token $REFRESH_TOKEN
-    // getAsync(`webstore upload --source WR-${version}.zip --extension-id ${env.CHROME_EXTENSION_ID} --client-id ${env.CHROME_CLIENT_ID} --client-secret ${env.CHROME_CLIENT_SECRET} --refresh-token ${env.CHROME_REFRESH_TOKEN}`)
-    //   .then((data) => {
-    //     console.log(chalk.bgGreen(`Successfuly Posted WebRemarks Version ${version}`));
-    //     // move version to archive
-    //     fs.renameSync(`./WR-${version}.zip`, `./archive/WR-${version}.zip`);
-    //     console.log(chalk.bgGreen('Published Version Moved to Archive'));
-    //   });
+    console.log(chalk.green(`Extension Version ${version} Deployed`));
   })
   .catch((error) => {
     console.log(error);

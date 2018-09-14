@@ -1,6 +1,6 @@
 {
   "name": "github-repo-score",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "main": "index.js",
   "license": "MIT",
   "description": "Generate a Quality Score for GitHub Repos",
@@ -15,9 +15,10 @@
     "publish": "build && deploy"
   },
   "devDependencies": {
-    "archiver": "^3.0.0",
+    "archiver": "^2.1.1",
     "bluebird": "^3.5.2",
     "chalk": "^2.4.1",
+    "chrome-webstore-upload-cli": "^1.2.0",
     "clean-webpack-plugin": "^0.1.17",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.25.0",

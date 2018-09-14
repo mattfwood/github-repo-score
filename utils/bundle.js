@@ -7,7 +7,7 @@ const chalk = require('chalk');
 function bundleExtension() {
   return new Promise((resolve, reject) => {
     // get version number
-    const manifest = fs.readFileSync('../package.json', 'utf8');
+    const manifest = fs.readFileSync('./package.json', 'utf8');
     const version = manifest
       .split('\n')[2]
       .split('"version": "')[1]
@@ -28,10 +28,10 @@ function bundleExtension() {
       const newManifest = manifest.replace(version, newVersion);
 
       // save new manifest
-      fs.writeFileSync('../package.json', newManifest, 'utf8');
+      fs.writeFileSync('./package.json', newManifest, 'utf8');
 
       // create new zip file
-      const output = fs.createWriteStream(path.join(`${__dirname}/WR-${newVersion}.zip`));
+      const output = fs.createWriteStream(path.join(`./GRS-${newVersion}.zip`));
 
       // compress dist folder
       const archive = archiver('zip', {
@@ -39,7 +39,7 @@ function bundleExtension() {
       });
 
       archive.pipe(output);
-      archive.directory('dist/', false);
+      archive.directory('./build/', false);
       archive.finalize();
 
       console.log(chalk.green('Extension Compressed'));
