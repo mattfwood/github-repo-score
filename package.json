@@ -1,6 +1,6 @@
 {
   "name": "github-repo-score",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "license": "MIT",
   "description": "Generate a Quality Score for GitHub Repos",
@@ -10,16 +10,25 @@
   },
   "scripts": {
     "build": "node utils/build.js",
-    "start": "node utils/webserver.js"
+    "start": "node utils/webserver.js",
+    "deploy": "node utils/deploy.js",
+    "publish": "build && deploy"
   },
   "devDependencies": {
+    "archiver": "^3.0.0",
+    "bluebird": "^3.5.2",
+    "chalk": "^2.4.1",
     "clean-webpack-plugin": "^0.1.17",
     "copy-webpack-plugin": "^4.2.0",
     "css-loader": "^0.25.0",
+    "dotenv": "^6.0.0",
     "file-loader": "^0.11.2",
     "fs-extra": "^0.30.0",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "2.24.1",
+    "node-cmd": "^3.0.0",
+    "prompt": "^1.0.0",
+    "shelljs": "^0.8.2",
     "style-loader": "^0.13.0",
     "webpack": "2.2.1",
     "webpack-dev-server": "^2.3.0",
